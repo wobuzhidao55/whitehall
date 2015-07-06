@@ -652,11 +652,13 @@
         span {
           display: block;
           padding-right: $gutter-half;
-          margin-bottom: -($gutter-half+$gutter-one-third);
-          &:last-child {
-            margin-bottom: 0;
-          }
         }
+
+        // Hide generated line breaks between spans (but not within them)
+        & > br {
+          display: none;
+        }
+
         p {
           margin: 0;
         }
