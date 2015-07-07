@@ -3,23 +3,23 @@
 <hr />
 <h2 class="add-bottom-margin feature-title">Feature new documents</h2>
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-sm-3">
     <%= render partial: 'admin/editions/filter_options', locals: { filter_by: filter_by, filter_action: polymorphic_url([:features, :admin, feature_list.featurable], locale: feature_list.locale) } %>
   </div>
-  <div class="col-md-9" id="search_results">
+  <div class="col-sm-9" id="search_results">
     <%= render partial: "admin/feature_lists/search_results", locals: {feature_list: feature_list} %>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-sm-6">
     <% if @featurable_topical_events.any? %>
       <h2 class="add-bottom-margin">Feature new topical events</h2>
       <%= render partial: 'admin/feature_lists/featurable_topical_events', locals: { feature_list: feature_list, featurable_topical_events: @featurable_topical_events } %>
     <% end %>
   </div>
 
-  <div class="col-md-6">
+  <div class="col-sm-6">
     <h2 class="add-bottom-margin">Feature new offsite link</h2>
     <% if @featurable_offsite_links.any? %>
       <%= render partial: 'admin/feature_lists/featurable_offsite_links', locals: { feature_list: feature_list, featurable_offsite_links: @featurable_offsite_links } %>

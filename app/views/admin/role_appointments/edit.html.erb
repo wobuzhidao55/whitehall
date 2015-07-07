@@ -1,7 +1,7 @@
 <% page_title "Edit appointment to #{@role_appointment.role.name}"  %>
 
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-sm-8">
     <h1>Edit appointment to position of <%= @role_appointment.role.name %> </h1>
 
     <%= form_for [:admin, @role_appointment], html: {class: 'well'} do |form| %>
@@ -17,7 +17,7 @@
     <% end %>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-sm-4">
     <section class="speeches">
       <h2>Speeches during this appointment</h2>
 

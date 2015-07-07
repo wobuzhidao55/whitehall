@@ -16,13 +16,13 @@
           <%= label_tag "ordering-#{feature.id}" do %>
             <div class="row">
               <% if feature.document && feature.document.published_edition %>
-                <div class="title col-md-6">
+                <div class="title col-sm-6">
                   <i class="glyphicon glyphicon-align-justify add-right-margin"></i>
                   <%= link_to(feature, admin_edition_path(feature.document.published_edition)) %>
                 </div>
-                <div class="type col-md-2"><%= feature.document.published_edition.type.titleize %> (document)</div>
-                <div class="date col-md-2"><%=localize feature.document.published_edition.major_change_published_at.to_date %></div>
-                <%= content_tag_for :div, feature.document.published_edition, class: "button text-right col-md-2" do %>
+                <div class="type col-sm-2"><%= feature.document.published_edition.type.titleize %> (document)</div>
+                <div class="date col-sm-2"><%=localize feature.document.published_edition.major_change_published_at.to_date %></div>
+                <%= content_tag_for :div, feature.document.published_edition, class: "button text-right col-sm-2" do %>
                   <%= link_to('Unfeature',
                         unfeature_admin_feature_list_feature_path(feature_list, feature),
                         data: { confirm: "Unfeature '#{feature}'?" },
@@ -30,13 +30,13 @@
                         class: "btn btn-danger") %>
                 <% end %>
               <% elsif feature.topical_event %>
-                <div class="title col-md-6">
+                <div class="title col-sm-6">
                   <i class="glyphicon glyphicon-align-justify add-right-margin"></i>
                   <%= link_to feature.topical_event, edit_admin_topical_event_path(feature.topical_event) %>
                 </div>
-                <div class="type col-md-2">Topical Event</div>
-                <div class="date col-md-2"><%= topical_event_dates_string(feature.topical_event) %></div>
-                <%= content_tag_for :div, feature.topical_event, class: "button text-right col-md-2" do %>
+                <div class="type col-sm-2">Topical Event</div>
+                <div class="date col-sm-2"><%= topical_event_dates_string(feature.topical_event) %></div>
+                <%= content_tag_for :div, feature.topical_event, class: "button text-right col-sm-2" do %>
                   <%= link_to('Unfeature',
                         unfeature_admin_feature_list_feature_path(feature_list, feature),
                         data: { confirm: "Unfeature '#{feature}'?" },
@@ -44,13 +44,13 @@
                         class: "btn btn-danger") %>
                 <% end %>
               <% elsif feature.offsite_link %>
-                <div class="title col-md-6">
+                <div class="title col-sm-6">
                   <i class="glyphicon glyphicon-align-justify add-right-margin"></i>
                   <%= link_to feature.offsite_link, polymorphic_path([:edit, :admin, feature.offsite_link.parent, feature.offsite_link]) %>
                 </div>
-                <div class="type col-md-2"><%= feature.offsite_link.humanized_link_type %> (offsite link)</div>
-                <div class="date col-md-2"><%=localize feature.offsite_link.date.to_date if feature.offsite_link.date %></div>
-                <%= content_tag_for :div, feature.offsite_link, class: "button text-right col-md-2" do %>
+                <div class="type col-sm-2"><%= feature.offsite_link.humanized_link_type %> (offsite link)</div>
+                <div class="date col-sm-2"><%=localize feature.offsite_link.date.to_date if feature.offsite_link.date %></div>
+                <%= content_tag_for :div, feature.offsite_link, class: "button text-right col-sm-2" do %>
                   <%= link_to('Unfeature',
                         unfeature_admin_feature_list_feature_path(feature_list, feature),
                         data: { confirm: "Unfeature '#{feature}'?" },
@@ -58,7 +58,7 @@
                         class: "btn btn-danger") %>
                 <% end %>
               <% else %>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                   <i class="glyphicon glyphicon-align-justify add-right-margin"></i>
                   <%= feature.document ? feature.document.latest_edition : "No edition" %>
                 </div>

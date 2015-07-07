@@ -28,10 +28,10 @@
   <h2 class="feature-title add-bottom-margin">Feature new documents tagged with ‘<%= @classification.name %>’</h2>
 
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-sm-3">
       <%= render partial: 'admin/editions/filter_options', locals: { filter_by: [:title, :type, :author, :organisation], filter_action: admin_topic_classification_featurings_url(@classification) } %>
     </div>
-    <div class="col-md-9" id="search_results">
+    <div class="col-sm-9" id="search_results">
       <%= render partial: 'admin/classification_featurings/featured_documents' %>
     </div>
   </div>

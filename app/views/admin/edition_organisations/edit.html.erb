@@ -3,7 +3,7 @@
 <h2>Feature ‘<%= @edition_organisation.edition.title %>’ within ‘<%= @edition_organisation.organisation.name %>’</h2>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-sm-6">
     <%= form_for [:admin, @edition_organisation], builder: Whitehall::FormBuilder do |form| %>
       <%= form.errors %>
       <%= form.hidden_field :featured %>

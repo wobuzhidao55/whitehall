@@ -1,13 +1,13 @@
 <% page_title "Editing #{attachment.attachable_model_name} #{attachment.readable_type} attachment" %>
 
 <div class="row">
-  <section class="col-md-8">
+  <section class="col-sm-8">
     <h1>Editing <%= attachment.attachable_model_name %> <%= attachment.readable_type %> attachment</h1>
 
     <%= render partial: 'form', locals: { attachable: attachable, attachment: attachment } %>
   </section>
   <% if attachment.html? %>
-    <div class="col-md-4">
+    <div class="col-sm-4">
       <%= simple_formatting_sidebar hide_inline_attachments_help: true, show_footnote_help: true %>
     </div>
   <% end %>

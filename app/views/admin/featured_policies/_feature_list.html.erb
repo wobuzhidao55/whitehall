@@ -15,11 +15,11 @@
         <div class="well feature-list">
           <%= label_tag "ordering-#{featured_policy.id}" do %>
             <div class="row">
-              <div class="title col-md-10">
+              <div class="title col-sm-10">
                 <i class="glyphicon glyphicon-align-justify add-right-margin"></i>
                 <%= featured_policy.title %>
               </div>
-              <div class="button text-right col-md-2">
+              <div class="button text-right col-sm-2">
                 <%= link_to(admin_organisation_featured_policy_path(organisation, featured_policy),
                       data: { confirm: "Unfeature '#{featured_policy.title}'?" },
                       method: :delete,
