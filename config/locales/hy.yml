@@ -88,6 +88,9 @@ hy:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: "Բաց խորհրդատվություն"
         other: "Բաց խորհրդատվություններ"

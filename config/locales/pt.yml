@@ -88,6 +88,9 @@ pt:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: Consulta aberta
         other: Consultas abertas

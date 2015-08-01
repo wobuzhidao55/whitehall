@@ -88,6 +88,9 @@ el:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: "Ανοιχτή διαβούλευση"
         other: "Ανοιχτές διαβουλεύσεις"

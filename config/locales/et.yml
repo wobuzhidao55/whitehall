@@ -88,6 +88,9 @@ et:
       notice:
         one: Teade
         other: Teated
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: Avatud konsultatsioon
         other: Avatud konsultatsioonid

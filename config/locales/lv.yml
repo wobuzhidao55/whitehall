@@ -88,6 +88,9 @@ lv:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: Atklāta konsultācija
         other: Atklātas konsultācijas

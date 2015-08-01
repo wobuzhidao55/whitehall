@@ -142,6 +142,11 @@ be:
         few:
         many:
         other:
+      official_statistics:
+        one:
+        few:
+        many:
+        other:
       open_consultation:
         one: "Адкрытая кансультацыя"
         few:

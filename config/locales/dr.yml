@@ -88,6 +88,9 @@ dr:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: "مشاورت باز"
         other: "مشاورت های باز"

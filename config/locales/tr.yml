@@ -210,6 +210,9 @@ tr:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: Devam eden çalışma
         other: Devam eden çalışmalar

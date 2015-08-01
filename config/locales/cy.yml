@@ -196,6 +196,13 @@ cy:
         few:
         many:
         other:
+      official_statistics:
+        zero:
+        one:
+        two:
+        few:
+        many:
+        other:
       open_consultation:
         zero:
         one: Ymgynghoriad ar agor

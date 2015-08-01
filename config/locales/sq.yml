@@ -88,6 +88,9 @@ sq:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: Konsultim i hapur
         other: Konsultime te hapur

@@ -208,6 +208,9 @@ az:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: açıq məsləhətləşmələr
         other: açıq məsləhətləşmələr

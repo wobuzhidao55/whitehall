@@ -210,6 +210,9 @@ fa:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: "رایزنی باز"
         other: "رایزنی های باز"

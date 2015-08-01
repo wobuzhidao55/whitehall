@@ -88,6 +88,9 @@ hi:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: "खुला परामर्श"
         other: "खुले परामर्श"

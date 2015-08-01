@@ -88,6 +88,9 @@ si:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: "විවෘත මත විමසුම"
         other: "විවෘත මත විමසුම්"

@@ -183,6 +183,9 @@ en:
       news_story:
         one: News story
         other: News stories
+      official_statistics:
+        one: Official statistics
+        other: Official statistics
       open_consultation:
         one: Open consultation
         other: Open consultations

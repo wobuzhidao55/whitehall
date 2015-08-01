@@ -142,6 +142,11 @@ uk:
         few:
         many:
         other:
+      official_statistics:
+        one:
+        few:
+        many:
+        other:
       open_consultation:
         one: "Відкрите обговорення"
         few:

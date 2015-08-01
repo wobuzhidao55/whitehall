@@ -88,6 +88,9 @@ ta:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: "திறந்த கலந்தாலோசனை"
         other: "திறந்த கலந்தாலோசனைகள்"

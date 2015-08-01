@@ -88,6 +88,9 @@ ps:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: "آزاده مشوره"
         other: "آزادې مشورې"

@@ -209,6 +209,9 @@ ko:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: "오픈 컨설테이션"
         other: "오픈 컨설테이션"

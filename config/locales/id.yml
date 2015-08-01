@@ -210,6 +210,9 @@ id:
       notice:
         one:
         other:
+      official_statistics:
+        one:
+        other:
       open_consultation:
         one: Konsultasi terbuka
         other: Konsultasi-konsultasi terbuka
