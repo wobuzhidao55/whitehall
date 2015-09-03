@@ -5,7 +5,9 @@
 "Whitehall" is the code name for the
 [Inside Government](https://www.gov.uk/government/) project, which
 aims to bring Government departments online in a consistent and
-user-friendly manner. Documentation can be found on [rdoc](http://rdoc.info/github/alphagov/whitehall/frames).
+user-friendly manner. Documentation can be found on [rdoc](http://rdoc.info/github/alphagov/whitehall/frames) and in the
+[markdown documentation](docs), including
+[an overview of all the moving parts](docs/overview.md).
 
 [Contributing guide](https://github.com/alphagov/whitehall/blob/master/CONTRIBUTING.md).
 
