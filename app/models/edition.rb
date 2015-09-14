@@ -634,6 +634,16 @@ class Edition < ActiveRecord::Base
     political? && !government.current?
   end
 
+  def public_url_changed_from_previous_edition?
+    # This can happen if a new edition is created with a different type where
+    # the new type has a different prefix.
+    if previous_edition.nil?
+      false
+    else
+      previous_edition.search_link == search_link
+    end
+  end
+
 private
 
   def date_for_government
