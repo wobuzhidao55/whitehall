@@ -68,19 +68,6 @@ jQuery(function($) {
 })(jQuery);
 
 (function($) {
-  var hideScheduledPublication = function() {
-    if ($('input#scheduled_publication_active').prop('checked')) {
-      $('.scheduled_publication').show();
-    } else {
-      $('.scheduled_publication').hide();
-    }
-  }
-
-  $('input#scheduled_publication_active').change(hideScheduledPublication)
-  hideScheduledPublication();
-})(jQuery);
-
-(function($) {
   var $label = $('.check-date-valid'),
       $message = $('.date-warning-info').hide();
   if ($label.length > 0){
