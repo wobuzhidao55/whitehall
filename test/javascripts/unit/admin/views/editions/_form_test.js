@@ -135,11 +135,10 @@ test("first_published time fields default to 00 if not set", function() {
 });
 
 test("previously_published radio buttons toggle visibility of first_published date selector", function() {
-  ok($('.js-show-first-published').is(':hidden'), 'date selector hidden by default');
+  ok($('#first-published-date').is(':hidden'), 'date selector hidden by default');
   $('#edition_previously_published_true').click();
-  ok($('.js-show-first-published').is(':visible'), 'date selector shown when "previously published" selected');
+  ok($('#first-published-date').is(':visible'), 'date selector shown when "previously published" selected');
 
   $('#edition_previously_published_false').click();
-  ok($('.js-show-first-published').is(':hidden'), 'date selector hidden when "document is new" selected');
+  ok($('#first-published-date').is(':hidden'), 'date selector hidden when "document is new" selected');
 });
-

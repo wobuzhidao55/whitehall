@@ -1,5 +1,8 @@
 <% if edition.published_major_version.nil? %>
-  <fieldset class="first-published-date well <% if edition.has_first_published_error %>alert-danger form-errors field_with_errors<% end %>">
+  <fieldset
+    data-module="radio-toggle"
+    class="first-published-date well <% if edition.has_first_published_error %>alert-danger form-errors field_with_errors<% end %>"
+  >
   <p class="required">This document <span>*</span></p>
   <div class="radio">
     <%= form.label :previously_published_false, class: 'radio' do %>
@@ -9,11 +12,11 @@
   </div>
   <div class="radio">
     <%= form.label :previously_published_true, class: 'radio' do %>
-      <%= form.radio_button(:previously_published, true, disabled: edition.imported?) %>
+      <%= form.radio_button(:previously_published, true, disabled: edition.imported?, 'data-target' => 'first-published-date') %>
       has previously been published on another website.
     <% end %>
   </div>
-  <div class="js-show-first-published show-first-published">
+  <div id="first-published-date" class="show-first-published">
     <% if edition.imported? %>
       <%= form.label :first_published_at, "First published <span>*</span>".html_safe, class: 'required' %>
     <% else %>
