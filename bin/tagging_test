@@ -1,0 +1,2 @@
+git checkout whitehall-admin-tagging-test
+bundle exec rails s -p $1

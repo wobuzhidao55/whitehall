@@ -1,3 +1,14 @@
+# Long running Whitehall branch
+
+This is a long running Whitehall branch to test out the new tagging
+interface for content creators.
+
+It will be kept up-to-date with the
+main Whitehall codebase. However, since this branch is for prototype
+interface interaction testing, there won't be code correctness tests
+added.
+
+
 [![Code Climate](https://codeclimate.com/github/alphagov/whitehall.png)](https://codeclimate.com/github/alphagov/whitehall)
 
 # Whitehall App
