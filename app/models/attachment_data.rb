@@ -77,9 +77,9 @@ class AttachmentData < ActiveRecord::Base
     if carrierwave_file.present? && carrierwave_file_changed?
       self.content_type = file.file.content_type
       self.file_size = file.file.size
-      if pdf?
-        self.number_of_pages = calculate_number_of_pages
-      end
+      # if pdf?
+      #   self.number_of_pages = calculate_number_of_pages
+      # end
     end
   end
 
