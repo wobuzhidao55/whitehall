@@ -28,7 +28,7 @@ class PublishingApiPresentersTest < ActiveSupport::TestCase
     organisation = Organisation.new
     presenter  = PublishingApiPresenters.presenter_for(organisation)
 
-    assert_equal PublishingApiPresenters::Placeholder, presenter.class
+    assert_equal PublishingApiPresenters::OrganisationPlaceholder, presenter.class
     assert_equal organisation, presenter.item
   end
 
