@@ -168,6 +168,10 @@ module Admin::EditionsHelper
 
   def default_edition_tabs(edition)
     { 'Document' => tab_url_for_edition(edition) }.tap do |tabs|
+      if edition.persisted?
+        tabs["Tagging"] = poly_tagging_admin_edition_path(edition)
+      end
+
       if edition.allows_attachments? && edition.persisted?
         text = if edition.attachments.count > 0
           "Attachments <span class='badge'>#{edition.attachments.count}</span>".html_safe
@@ -205,19 +209,23 @@ module Admin::EditionsHelper
     end
   end
 
+  def edition_tagging_headline(edition)
+    "Tag #{edition.type.underscore.humanize.downcase}"
+  end
+
   def edition_information(information)
     content_tag(:div, class: "alert alert-info") do
       information
     end
   end
 
-  def standard_edition_publishing_controls(form, edition)
+  def standard_edition_publishing_controls(form, edition, hide_tag_button: false)
     content_tag(:div, class: "publishing-controls well") do
       if edition.change_note_required?
         concat render(partial: "change_notes",
                       locals: { form: form, edition: edition })
       end
-      concat form.save_or_continue_or_cancel
+      concat form.save_or_continue_or_cancel(hide_tag_button: hide_tag_button)
     end
   end
 

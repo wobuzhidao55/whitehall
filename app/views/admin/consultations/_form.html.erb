@@ -40,26 +40,6 @@
       <%= render 'inline_attachments_info', form: form, edition: edition %>
     </div>
 
-    <fieldset>
-      <legend>Associations</legend>
 
-      <div class="important-associations">
-        <%= render 'admin/shared/policy_fields', form: form %>
-        <%= render 'topic_fields', form: form, edition: edition %>
-      </div>
-
-      <div class="js-external-url-set">
-        <%= render 'appointment_fields', form: form, edition: edition %>
-      </div>
-
-      <%= render 'topical_event_fields', form: form, edition: edition %>
-
-      <div class="js-external-url-set">
-        <%= render 'nation_fields', form: form, edition: edition %>
-      </div>
-
-      <%= render 'organisation_fields', form: form, edition: edition %>
-      <%= render 'specialist_sector_fields', form: form, edition: edition %>
-    </fieldset>
   <% end %>
 <% end %>

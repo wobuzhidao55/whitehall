@@ -6,14 +6,6 @@
 
 <%= edition_editing_tabs(edition) do %>
   <%= standard_edition_form(edition) do |form| %>
-
-    <%= render partial: 'inline_attachments_info', locals: { form: form, edition: edition } %>
-
-    <fieldset>
-      <legend>Associations</legend>
-      <%= render partial: 'topic_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
-      <%= render partial: 'organisation_fields', locals: { form: form, edition: edition } %>
-    </fieldset>
+    <%= render 'inline_attachments_info', form: form, edition: edition %>
   <% end %>
 <% end %>

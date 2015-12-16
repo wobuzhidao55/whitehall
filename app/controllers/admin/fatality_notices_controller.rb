@@ -11,4 +11,9 @@ class Admin::FatalityNoticesController < Admin::EditionsController
   def build_fatality_notice_casualties
     @edition.fatality_notice_casualties.build unless @edition.fatality_notice_casualties.any?
   end
+
+  def find_edition
+    edition = edition_class.find(params[:fatality_notice_id] || params[:id])
+    @edition = LocalisedModel.new(edition, edition.primary_locale)
+  end
 end

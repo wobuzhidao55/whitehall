@@ -7,7 +7,7 @@ module Whitehall::Authority::Rules
         :reject, :make_fact_check, :review_fact_check,
         :make_editorial_remark, :review_editorial_remark,
         :limit_access, :unpublish, :export, :confirm_export,
-        :mark_political
+        :mark_political, :tagging, :tag
       ]
     end
 

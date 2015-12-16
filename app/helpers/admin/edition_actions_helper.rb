@@ -110,6 +110,10 @@ module Admin::EditionActionsHelper
     options_for_select([["All types", ""]]) + edition_type_options_for_select(user, selected) + edition_sub_type_options_for_select(selected)
   end
 
+  def tagging_edition_button(edition)
+    link_to 'Edit tags', poly_tagging_admin_edition_path(edition), title: "Tag #{edition.title}", class: "btn btn-default btn-lg add-left-margin"
+  end
+
   private
 
   def edition_type_options_for_select(user, selected)

@@ -5,7 +5,7 @@ module Edition::Topics
 
   included do
     has_many :topics, through: :classification_memberships, source: :topic
-    validate :has_at_least_one_topic, unless: :imported?
+    validate :has_at_least_one_topic, unless: :imported?, if: Proc.new { |obj| !obj.new_record? }
   end
 
   def can_be_associated_with_topics?

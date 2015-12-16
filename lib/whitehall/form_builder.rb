@@ -67,8 +67,15 @@ module Whitehall
       }
     end
 
-    def save_or_continue_or_cancel(options = {})
-      buttons = { save: 'Save', save_and_continue: 'Save and continue editing' }
+    def save_or_continue_or_cancel(options = {}, hide_tag_button: false)
+      buttons = {}
+      if hide_tag_button
+        buttons[:save] = 'Save'
+        buttons[:save_and_continue_tagging] = 'Save and continue tagging'
+      else
+        buttons[:tag_document] = 'Tag document'
+        buttons[:save_and_continue] = 'Save and continue editing'
+      end
       form_actions(options.reverse_merge(buttons: buttons))
     end
 

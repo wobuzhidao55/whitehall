@@ -1,13 +1,13 @@
 class PublishingApiPresenters::CaseStudy < PublishingApiPresenters::Edition
   def links
     {
-      lead_organisations: item.lead_organisations.map(&:content_id),
+      lead_organisations: edition.lead_organisations.map(&:content_id).select(&:present?),
       related_policies: policy_content_ids,
-      supporting_organisations: item.supporting_organisations.map(&:content_id),
-      document_collections: item.published_document_collections.map(&:content_id),
-      world_locations: item.world_locations.map(&:content_id),
-      worldwide_organisations: item.worldwide_organisations.map(&:content_id),
-      worldwide_priorities: item.worldwide_priorities.map(&:content_id),
+      supporting_organisations: edition.supporting_organisations.map(&:content_id).select(&:present?),
+      document_collections: edition.published_document_collections.map(&:content_id).select(&:present?),
+      world_locations: edition.world_locations.map(&:content_id).select(&:present?),
+      worldwide_organisations: edition.worldwide_organisations.map(&:content_id).select(&:present?),
+      worldwide_priorities: edition.worldwide_priorities.map(&:content_id).select(&:present?),
     }
   end
 
@@ -74,6 +74,6 @@ private
   end
 
   def policy_content_ids
-    item.policy_content_ids
+    edition.policy_content_ids.select(&:present?)
   end
 end

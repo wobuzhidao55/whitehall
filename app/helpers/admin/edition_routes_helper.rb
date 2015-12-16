@@ -48,4 +48,12 @@ module Admin::EditionRoutesHelper
   def admin_corporate_information_page_url(edition, *args)
     polymorphic_url([:admin, edition.owning_organisation, edition], *args)
   end
+
+  def poly_tagging_admin_edition_path(edition, *args)
+    if edition.respond_to? :owning_organisation
+      polymorphic_path([:admin, edition.owning_organisation, edition, :tagging], *args)
+    else
+      polymorphic_path([:admin, edition, :tagging], *args)
+    end
+  end
 end

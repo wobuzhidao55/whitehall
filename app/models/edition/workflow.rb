@@ -95,8 +95,8 @@ module Edition::Workflow
     Edition::PRE_PUBLICATION_STATES.include?(state.to_s)
   end
 
-  def save_as(user)
-    if save
+  def save_as(user, validate = true)
+    if save(validate: validate)
       edition_authors.create!(user: user)
       recent_edition_openings.where(editor_id: user).delete_all
     end

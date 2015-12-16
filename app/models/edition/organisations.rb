@@ -16,7 +16,7 @@ module Edition::Organisations
     before_save :mark_for_destruction_all_edition_organisations_for_destruction
     after_save :clear_edition_organisations_touched_or_destroyed_by_lead_or_supporting_organisations_setters
 
-    validate :at_least_one_lead_organisation
+    validate :at_least_one_lead_organisation, if: Proc.new { |obj| !obj.new_record? }
     validate :no_duplication_of_organisations
 
     add_trait Trait

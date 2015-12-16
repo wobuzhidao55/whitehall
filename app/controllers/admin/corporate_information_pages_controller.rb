@@ -47,4 +47,9 @@ private
   def document_can_be_previously_published
     false
   end
+
+  def find_edition
+    edition = edition_class.find(params[:corporate_information_page_id] || params[:id])
+    @edition = LocalisedModel.new(edition, edition.primary_locale)
+  end
 end

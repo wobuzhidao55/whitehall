@@ -168,6 +168,8 @@ Whitehall::Application.routes.draw do
         resources :authors, only: [:show]
         resource :document_searches, only: [:show]
         resources :document_collections, path: "collections", except: [:index] do
+          get :tagging
+          patch :tag
           resources :document_collection_groups, as: :groups, path: 'groups' do
             member { get :delete }
             resource :document_collection_group_membership, as: :members,
@@ -182,6 +184,8 @@ Whitehall::Application.routes.draw do
         resources :organisations do
           resources :groups, except: [:show]
           resources :corporate_information_pages do
+            get :tagging
+            patch :tag
             resources :translations, controller: 'corporate_information_pages_translations'
           end
           resources :contacts do
@@ -208,6 +212,8 @@ Whitehall::Application.routes.draw do
           end
         end
         resources :corporate_information_pages, only: [] do
+          get :tagging
+          patch :tag
           resources :attachments, except: [:show] do
             put :order, on: :collection
           end
@@ -223,7 +229,7 @@ Whitehall::Application.routes.draw do
           resources :classification_featurings, path: "featurings" do
             put :order, on: :collection
           end
-        resources :offsite_links
+          resources :offsite_links
         end
         resources :topical_events, path: "topical-events" do
           resource :about_pages, path: 'about'
@@ -250,6 +256,8 @@ Whitehall::Application.routes.draw do
             resources :translations, controller: 'worldwide_office_translations', only: [:create, :edit, :update, :destroy]
           end
           resources :corporate_information_pages do
+            get :tagging
+            patch :tag
             resources :translations, controller: 'corporate_information_pages_translations'
           end
           resources :social_media_accounts
@@ -276,6 +284,8 @@ Whitehall::Application.routes.draw do
             post :unschedule, to: 'edition_workflow#unschedule'
             post :convert_to_draft, to: 'edition_workflow#convert_to_draft'
             get :audit_trail, to: 'edition_audit_trail#index'
+            get :tagging
+            patch :tag
           end
           resources :links_reports
           resource :unpublishing, controller: 'edition_unpublishing', only: [:edit, :update]
@@ -307,15 +317,29 @@ Whitehall::Application.routes.draw do
 
         resources :suggestions, only: [:index]
 
-        resources :publications, except: [:index]
+        resources :publications, except: [:index] do
+          get :tagging
+          patch :tag
+        end
 
         get "/policies/:policy_id/topics" => "policies#topics"
 
         resources :worldwide_priorities, path: "priority", except: [:index]
-        resources :news_articles, path: 'news', except: [:index]
-        resources :world_location_news_articles, path: 'world-location-news', except: [:index]
-        resources :fatality_notices, path: 'fatalities', except: [:index]
+        resources :news_articles, path: 'news', except: [:index] do
+          get :tagging
+          patch :tag
+        end
+        resources :world_location_news_articles, path: 'world-location-news', except: [:index] do
+          get :tagging
+          patch :tag
+        end
+        resources :fatality_notices, path: 'fatalities', except: [:index] do
+          get :tagging
+          patch :tag
+        end
         resources :consultations, except: [:index] do
+          get :tagging
+          patch :tag
           resource :outcome, controller: 'responses', type: 'ConsultationOutcome', except: [:new, :destroy]
           resource :public_feedback, controller: 'responses', type: 'ConsultationPublicFeedback', except: [:new, :destroy]
         end
@@ -325,9 +349,18 @@ Whitehall::Application.routes.draw do
           end
         end
 
-        resources :speeches, except: [:index]
-        resources :statistical_data_sets, path: 'statistical-data-sets', except: [:index]
-        resources :detailed_guides, path: "detailed-guides", except: [:index]
+        resources :speeches, except: [:index] do
+          get :tagging
+          patch :tag
+        end
+        resources :statistical_data_sets, path: 'statistical-data-sets', except: [:index] do
+          get :tagging
+          patch :tag
+        end
+        resources :detailed_guides, path: "detailed-guides", except: [:index] do
+          get :tagging
+          patch :tag
+        end
         resources :people do
           resources :translations, controller: 'person_translations'
           resources :historical_accounts
@@ -352,9 +385,15 @@ Whitehall::Application.routes.draw do
             post :unfeature, on: :member
           end
         end
-        resources :case_studies, path: "case-studies", except: [:index]
+        resources :case_studies, path: "case-studies", except: [:index] do
+          get :tagging
+          patch :tag
+        end
         if Rails.env.test?
-          resources :generic_editions, path: "generic-editions"
+          resources :generic_editions, path: "generic-editions" do
+            get :tagging
+            patch :tag
+          end
         end
 
         resources :governments, except: [:destroy] do

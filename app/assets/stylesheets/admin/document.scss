@@ -151,8 +151,12 @@ ol.existing-attachments {
   }
 }
 
-input[name="save_and_continue"] {
+input[name="save_and_continue"], input[name="save_and_continue_tagging"] {
   margin-left: 0.4em;
+}
+
+input[name="tag_document"] {
+  margin-right: 0.4em;
 }
 
 .virus-status {

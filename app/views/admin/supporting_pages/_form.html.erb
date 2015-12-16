@@ -10,8 +10,8 @@
     </div>
 
     <fieldset>
-      <legend>Associations</legend>
-      <%= render 'admin/shared/policy_fields', form: form %>
+     <legend>Associations</legend>
+      <%= render 'admin/shared/policies', form: form %>
       <%= render partial: 'specialist_sector_fields', locals: { form: form, edition: edition } %>
     </fieldset>
   <% end %>

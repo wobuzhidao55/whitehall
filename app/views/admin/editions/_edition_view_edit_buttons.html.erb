@@ -14,4 +14,6 @@
   <% elsif @edition.is_latest_edition? and @edition.published? %>
     <%= redraft_edition_button(@edition) %>
   <% end %>
+
+  <%= tagging_edition_button(@edition) %>
 </section>
