@@ -12,6 +12,8 @@
 # Whitehall::SearchIndex.add(document.published_edition)
 
 require "csv"
+# require_relative 'app/models/edition/traits.rb'
+
 csv_file = File.join(File.dirname(__FILE__), "20160106120453_split_school_college_funding_accountability_policy.csv")
 
 csv = CSV.parse(File.open(csv_file), headers: true)
@@ -21,7 +23,7 @@ csv.first(2).each do |row|
   old_policy_content_id = row["old_policy_content_id"]
   new_policy_content_ids = row["new_policy_content_ids"].split(" ")
 
-  document = Document.where(slug: slug)
+  document = Document.where(slug: slug).first
 
   binding.pry
   unless document

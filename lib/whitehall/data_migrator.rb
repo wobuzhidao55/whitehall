@@ -23,6 +23,7 @@ module Whitehall
     end
 
     def run
+      DataMigrationRecord.last.delete if DataMigrationRecord.last.version == 20160106120453
       if due.any?
         @logger.info "Running #{due.size} data migrations..."
         due.sort_by(&:version).each do |migration|
