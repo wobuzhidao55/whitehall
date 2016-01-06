@@ -25,7 +25,6 @@ csv.first(2).each do |row|
 
   document = Document.where(slug: slug).first
 
-  binding.pry
   unless document
     puts "Document does not exist, slug: #{slug}"
     next
