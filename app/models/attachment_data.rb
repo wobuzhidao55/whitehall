@@ -1,5 +1,3 @@
-require 'pdf-reader'
-
 class AttachmentData < ActiveRecord::Base
   mount_uploader :file, AttachmentUploader, mount_on: :carrierwave_file
 
@@ -8,6 +6,7 @@ class AttachmentData < ActiveRecord::Base
   delegate :url, :path, to: :file, allow_nil: true
 
   before_save :update_file_attributes
+  after_save :count_pdf_pages
 
   validates :file, presence: true, unless: :virus_scan_pending?
   validate :file_is_not_empty
@@ -77,10 +76,11 @@ class AttachmentData < ActiveRecord::Base
     if carrierwave_file.present? && carrierwave_file_changed?
       self.content_type = file.file.content_type
       self.file_size = file.file.size
-      if pdf?
-        self.number_of_pages = calculate_number_of_pages
-      end
     end
+  end
+
+  def count_pdf_pages
+    PDFPageCountWorker.perform_async(self.id, file.read) if pdf?
   end
 
   def replace_with!(replacement)
@@ -107,12 +107,6 @@ private
   def handle_to_replace_id
     return if to_replace_id.blank?
     AttachmentData.find(to_replace_id).replace_with!(self)
-  end
-
-  def calculate_number_of_pages
-    PDF::Reader.new(path).page_count
-  rescue PDF::Reader::MalformedPDFError, PDF::Reader::UnsupportedFeatureError => e
-    return nil
   end
 
   def file_is_not_empty
