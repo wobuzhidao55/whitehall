@@ -2,7 +2,7 @@ require "test_helper"
 require "gds_api/test_helpers/publishing_api"
 
 class WithdrawingTest < ActiveSupport::TestCase
-  test "When an edition is withdrawn, it gets republished to the Publishing API with an withdrawn notice" do
+  test "When an edition is withdrawn, it gets republished to the Publishing API with a withdrawn notice" do
     edition   = create(:published_case_study)
     presenter = PublishingApiPresenters.presenter_for(edition)
     edition.build_unpublishing(explanation: 'Old information',
