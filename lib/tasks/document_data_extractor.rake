@@ -4,10 +4,10 @@ namespace :data_extractor do
   HEADERS = %w(
     document_slug
     document_content_id
+    type
     total_lead_organisations
     lead_organisations_content_ids
     lead_organisation_slugs
-    supporting_organisations
     total_supporting_organisations
     supporting_organisations_content_ids
     supporting_organisations_slugs
@@ -19,68 +19,64 @@ namespace :data_extractor do
     end
   end
 
-  def has_orgs?(ed)
-    return false if ed.class == CorporateInformationPage
-    ed.supporting_organisations.any? || ed.lead_organisations.any?
+  def run!
+    documents.each_with_index do |doc, i|
+      write_edition_to_file(doc) if has_multiple_orgs? doc
+      puts i if i % 100 == 0
+    end
   end
 
-  def run!
-    Edition.includes(:document).where.not(first_published_at: nil).find_in_batches do |group|
-      group.select do |ed|
-        write_edition_to_file(ed) if has_lead_or_supporting_orgs?(ed)
+  def documents
+    return enum_for(:documents) unless block_given?
+
+    Document.joins(:published_edition).includes(:published_edition).find_in_batches do |group|
+      group.select do |doc|
+        yield doc
       end
     end
   end
 
-  def write_edition_to_file(ed)
-    data_hash = data_hash_for_edition(ed)
-    puts "Saving data for #{ed.document.slug}"
+  def write_edition_to_file(doc)
+    data_hash = data_hash_for_edition(doc)
 
     CSV.open("org_data.csv", "a+") do |csv|
       csv << data_hash.values
     end
   end
 
-  def data_hash_for_edition(ed)
+  def data_hash_for_edition(doc)
+    lead_organisations = doc.published_edition.lead_organisations
+    supporting_organisations = doc.published_edition.supporting_organisations
+
     {
-      document_slug:                        ed.document.slug,
-      document_content_id:                  ed.document.content_id,
-      total_lead_organisations:             ed.lead_organisations.count,
-      lead_organisations_content_ids:       lead_organisation_content_ids(ed),
-      lead_organisation_slugs:              lead_organisation_slugs(ed),
-      total_supporting_organisations:       ed.supporting_organisations.count,
-      supporting_organisations_content_ids: supporting_organisations_content_ids(ed),
-      supporting_organisations_slugs:       supporting_organisations_slugs(ed),
+      document_slug:                        doc.slug,
+      document_content_id:                  doc.content_id,
+      type:                                 doc.published_edition.type,
+      total_lead_organisations:             lead_organisations.count,
+      lead_organisations_content_ids:       organisation_content_ids(lead_organisations),
+      lead_organisation_slugs:              organisation_slugs(lead_organisations),
+      total_supporting_organisations:       supporting_organisations.count,
+      supporting_organisations_content_ids: organisation_content_ids(supporting_organisations),
+      supporting_organisations_slugs:       organisation_slugs(supporting_organisations),
     }
   end
 
-  def lead_organisation_slugs(ed)
-    return unless ed.lead_organisations.any?
-    ed.lead_organisations.map {|org| org.slug}.join(" ")
+  def organisation_slugs(organisations)
+    organisations.map(&:slug).join(" ")
   end
 
-  def lead_organisation_content_ids(ed)
-    return unless ed.lead_organisations.any?
-    ed.lead_organisations.map {|org| org.content_id}.join(" ")
+  def organisation_content_ids(organisations)
+    organisations.map(&:content_id).join(" ")
   end
 
-  def supporting_organisations_content_ids(ed)
-    return unless ed.supporting_organisations.any?
-    ed.supporting_organisations.map {|org| org.content_id}.join(" ")
-  end
-
-  def supporting_organisations_slugs(ed)
-    return unless ed.supporting_organisations.any?
-    ed.supporting_organisations.map {|org| org.slug}.join(" ")
-  end
-
-  def has_lead_or_supporting_orgs?(ed)
+  def has_multiple_orgs?(doc)
+    ed = doc.published_edition
     return false if ed.class == CorporateInformationPage
-    ed.supporting_organisations.any? || ed.lead_organisations.any?
+    (ed.lead_organisations.count + ed.supporting_organisations.count) > 1
   end
 
   desc "Extract document organisation data"
-  task :organisations => :environment do
+  task organisations: :environment do
     write_headers
     run!
   end
