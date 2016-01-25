@@ -41,7 +41,6 @@ class Admin::TopicsControllerTest < ActionController::TestCase
 
   test "POST :create creates a new topic" do
     first_topic = create(:topic)
-    second_topic = create(:topic)
     attributes = attributes_for(:topic)
 
     post :create, topic: attributes.merge(
@@ -54,6 +53,7 @@ class Admin::TopicsControllerTest < ActionController::TestCase
     assert_equal attributes[:name], topic.name
     assert_equal attributes[:description], topic.description
     assert_equal [first_topic].to_set, topic.related_classifications.to_set
+    assert topic.content_id.present?
   end
 
   view_test "POST :create with bad data shows errors" do

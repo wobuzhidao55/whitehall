@@ -32,6 +32,7 @@ class Admin::TopicalEventsControllerTest < ActionController::TestCase
     topical_event = TopicalEvent.last
     assert_equal 'Event', topical_event.name
     assert_equal 'Event description', topical_event.description
+    assert topical_event.content_id.present?
   end
 
   view_test 'GET :index lists the topical events' do

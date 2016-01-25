@@ -2,6 +2,7 @@
 class Classification < ActiveRecord::Base
   include Searchable
   include SimpleWorkflow
+  include HasContentId
 
   searchable title: :name,
              link: :search_link,
