@@ -107,7 +107,9 @@ module GovspeakHelper
   end
 
   def wrapped_in_govspeak_div(html_string)
-    content_tag(:div, html_string.html_safe, class: 'govspeak')
+    render partial: 'govuk_component/govspeak', locals: {
+      content: html_string.html_safe
+    }
   end
 
   def bare_govspeak_to_html(govspeak, images = [], options = {}, &block)

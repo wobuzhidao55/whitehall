@@ -39,14 +39,18 @@
           <% if @document.present? %>
             <h1 class="main"><%= @document.title %></h1>
             <div class="body">
-              <div class="govspeak">
-                <h2 id="what-we-do"><%= t('organisation.headings.what_we_do') %></h2>
+              <% @govspeak = capture do %>
+                <h2 id="what-we-do2"><%= t('organisation.headings.what_we_do') %></h2>
                 <p class="description">
                   <%= @document.summary %>
                 </p>
               </div>
               <%= govspeak_edition_to_html @document %>
-            </div>
+            <% end %>
+            <%= render partial: 'govuk_component/govspeak', locals: {
+              content: @govspeak
+            } %>
+
           <% end %>
           <% if has_any_transparency_pages?(@organisation) %>
             <%= render partial: "#{@organisation.class.table_name}/corporate_information",
