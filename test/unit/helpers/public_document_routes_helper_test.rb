@@ -54,6 +54,24 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
     assert_equal organisation_corporate_information_pages_path(cip.organisation), public_document_path(cip)
   end
 
+  test 'returns the correct URL for a CorporateInformationPage' do
+    org = create(:organisation)
+    cip = create(:corporate_information_page, organisation: org)
+    assert_equal "https://www.test.alphagov.co.uk/government/organisations/#{org.slug}/about/publication-scheme", public_document_url(cip)
+  end
+
+  test 'returns the correct path for a translated CorporateInformationPage' do
+    org = build(:organisation, slug: 'an-organisation')
+    cip = build(:corporate_information_page, organisation: org)
+
+    I18n.with_locale :fr do
+      cip.body = "French body"
+      cip.save!
+
+      assert_equal "/government/organisations/#{org.slug}/about/publication-scheme.fr", public_document_path(cip)
+    end
+  end
+
   test 'returns correct path for organisation About Us pages' do
     org = build(:organisation, slug: 'an-organisation')
     cip = build(:corporate_information_page,
@@ -61,6 +79,20 @@ class PublicDocumentRoutesHelperTest < ActionView::TestCase
                 corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
 
     assert_equal "/government/organisations/#{org.slug}/about", public_document_path(cip)
+  end
+
+  test 'returns the correct path for a translated About Us page' do
+    org = build(:organisation, slug: 'an-organisation')
+    cip = build(:corporate_information_page,
+                organisation: org,
+                corporate_information_page_type_id: CorporateInformationPageType::AboutUs.id)
+
+    I18n.with_locale :fr do
+      cip.body = "French body"
+      cip.save!
+
+      assert_equal "/government/organisations/#{org.slug}/about.fr", public_document_path(cip)
+    end
   end
 
   test 'returns correct path for world organisation About Us pages' do

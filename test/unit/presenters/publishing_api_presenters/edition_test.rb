@@ -116,6 +116,21 @@ class PublishingApiPresenters::EditionTest < ActiveSupport::TestCase
     assert_equal update_type_override, presented_item.content[:update_type]
   end
 
+  test 'translated CIP' do
+    org = build(:organisation, slug: 'an-organisation')
+    cip = build(:corporate_information_page, organisation: org)
+
+    I18n.with_locale :fr do
+      cip.body = "French body"
+      cip.save!
+
+      presented_item = present(cip)
+
+      assert_equal 'fr', presented_item.content[:locale]
+      assert_equal "/government/organisations/#{org.slug}/about/publication-scheme.fr", presented_item.content[:base_path]
+    end
+  end
+
   test 'is locale aware' do
     edition = create(:publication)
 

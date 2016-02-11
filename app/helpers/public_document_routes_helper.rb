@@ -94,6 +94,11 @@ module PublicDocumentRoutesHelper
       end
     else
       polymorphic_url([org, 'corporate_information_page'], options.merge(id: edition.slug))
+      # if options.delete(:routing_type) == :path
+      #   organisation_corporate_information_page_path([org], options.merge(id: edition.slug))
+      # else
+      #   organisation_corporate_information_page_url([org], options.merge(id: edition.slug))
+      # end
     end
   end
 
