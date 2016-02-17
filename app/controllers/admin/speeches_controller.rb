@@ -14,8 +14,7 @@ class Admin::SpeechesController < Admin::EditionsController
     end
   end
 
-  def find_edition
-    edition = edition_class.find(params[:speech_id] || params[:id])
-    @edition = LocalisedModel.new(edition, edition.primary_locale)
+  def requested_edition_id
+    params[:speech_id] || super
   end
 end

@@ -4,15 +4,15 @@ class Admin::EditionsController < Admin::BaseController
   before_filter :clean_edition_parameters, only: [:create, :update]
   before_filter :build_array_out_of_need_ids_string, only: [:create, :update]
   before_filter :clear_scheduled_publication_if_not_activated, only: [:create, :update]
-  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy, :tagging, :tag]
+  before_filter :find_edition, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy, :edit_tags, :update_tags]
   before_filter :prevent_modification_of_unmodifiable_edition, only: [:edit, :update]
   before_filter :delete_absent_edition_organisations, only: [:create, :update]
   before_filter :build_edition, only: [:new, :create]
-  before_filter :detect_other_active_editors, only: [:edit, :tagging]
+  before_filter :detect_other_active_editors, only: [:edit, :edit_tags]
   before_filter :set_edition_defaults, only: :new
   before_filter :build_blank_image, only: [:new, :edit]
   before_filter :enforce_permissions!
-  before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy, :tagging, :tag]
+  before_filter :limit_edition_access!, only: [:show, :edit, :update, :submit, :revise, :diff, :reject, :destroy, :edit_tags, :update_tags]
   before_filter :redirect_to_controller_for_type, only: [:show]
   before_filter :deduplicate_specialist_sectors, only: [:create, :update]
   before_filter :trigger_previously_published_validations, only: [:create], if: :document_can_be_previously_published
@@ -27,8 +27,6 @@ class Admin::EditionsController < Admin::BaseController
 
   def enforce_permissions!
     case action_name
-    when 'tag'
-      enforce_permission!(:tag, @edition)
     when 'index', 'topics'
       enforce_permission!(:see, edition_class || Edition)
     when 'show'
@@ -39,12 +37,12 @@ class Admin::EditionsController < Admin::BaseController
       enforce_permission!(:create, @edition)
     when 'edit', 'update', 'revise', 'diff'
       enforce_permission!(:update, @edition)
+    when 'edit_tags', 'update_tags'
+      enforce_permission!(:update_tags, @edition)
     when 'destroy'
       enforce_permission!(:delete, @edition)
     when 'export', 'confirm_export'
       enforce_permission!(:export, edition_class || Edition)
-    when 'tagging'
-      enforce_permission!(:tagging, @edition)
     else
       raise Whitehall::Authority::Errors::InvalidAction.new(action_name)
     end
@@ -155,7 +153,7 @@ class Admin::EditionsController < Admin::BaseController
     end
   end
 
-  def tagging
+  def edit_tags
     # how about not actually loading the real edition?
     # just call it edition.
     # Don't really need anything bar the document id
@@ -164,7 +162,7 @@ class Admin::EditionsController < Admin::BaseController
     @edition = Admin::TagLoader.new(@edition).load_tags_for_edition
   end
 
-  def tag
+  def update_tags
     Admin::TagSender.new(@edition.content_id, edition_params).send_tags
     redirect_to show_or_tag_path, saved_confirmation_notice
   end
@@ -183,6 +181,14 @@ class Admin::EditionsController < Admin::BaseController
 
   def edition_class
     Edition
+  end
+
+  def requested_edition_id
+    params[:id]
+  end
+
+  def requested_edition
+    edition_class.find(requested_edition_id)
   end
 
   def edition_params
@@ -248,7 +254,7 @@ class Admin::EditionsController < Admin::BaseController
     if params[:save_and_continue].present?
       [:edit, :admin, @edition]
     elsif (params[:save_and_continue_tagging] || params[:tag_document]).present?
-      [:admin, @edition, :tagging]
+      [:admin, @edition, :edit_tags]
     else
       admin_edition_path(@edition)
     end
@@ -256,7 +262,7 @@ class Admin::EditionsController < Admin::BaseController
 
   def show_or_tag_path
     if params[:save_and_continue_tagging].present?
-      [:admin, @edition, :tagging]
+      [:admin, @edition, :edit_tags]
     else
       admin_edition_path(@edition)
     end
@@ -278,8 +284,10 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def find_edition
-    edition = edition_class.find(params[:id])
-    @edition = LocalisedModel.new(edition, edition.primary_locale)
+    @edition = LocalisedModel.new(
+      requested_edition,
+      requested_edition.primary_locale
+    )
   end
 
   def build_edition_dependencies

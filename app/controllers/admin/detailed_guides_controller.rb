@@ -5,8 +5,7 @@ private
     DetailedGuide
   end
 
-  def find_edition
-    edition = edition_class.find(params[:detailed_guide_id] || params[:id])
-    @edition = LocalisedModel.new(edition, edition.primary_locale)
+  def requested_edition_id
+    params[:detailed_guide_id] || super
   end
 end

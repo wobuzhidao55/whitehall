@@ -15,7 +15,7 @@
 
         <%= initialise_script "GOVUK.adminEditionsForm", selector: '.js-edition-form', right_to_left_locales: Locale.right_to_left.collect(&:to_param) %>
 
-        <%= form_for @edition, url: {action: 'tag'}, as: :edition, html: { class: "edition-form js-edition-form" } do |form| %>
+        <%= form_for @edition, url: {action: 'update_tags'}, as: :edition, html: { class: "edition-form js-edition-form" } do |form| %>
 
           <%= render('locale_fields', form: form, edition: @edition) %>
           <%= edition_information(@information) if @information %>

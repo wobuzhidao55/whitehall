@@ -7,6 +7,10 @@ class Admin::ConsultationsController < Admin::EditionsController
     Consultation
   end
 
+  def requested_edition_id
+    params[:consultation_id] || super
+  end
+
   def cope_with_consultation_response_form_data_action_params
     # NOTE: this is slightly different to what happens above in that
     # replace here will not create a new onbject and set up a replaced_by
@@ -37,10 +41,5 @@ class Admin::ConsultationsController < Admin::EditionsController
 
   def document_can_be_previously_published
     false
-  end
-
-  def find_edition
-    edition = edition_class.find(params[:consultation_id] || params[:id])
-    @edition = LocalisedModel.new(edition, edition.primary_locale)
   end
 end

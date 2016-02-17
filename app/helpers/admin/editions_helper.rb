@@ -169,7 +169,7 @@ module Admin::EditionsHelper
   def default_edition_tabs(edition)
     { 'Document' => tab_url_for_edition(edition) }.tap do |tabs|
       if edition.persisted?
-        tabs["Tagging"] = poly_tagging_admin_edition_path(edition)
+        tabs["Tagging"] = poly_admin_edition_edit_tags_path(edition)
       end
 
       if edition.allows_attachments? && edition.persisted?

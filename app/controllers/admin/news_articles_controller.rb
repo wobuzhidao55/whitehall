@@ -6,8 +6,7 @@ class Admin::NewsArticlesController < Admin::EditionsController
     NewsArticle
   end
 
-  def find_edition
-    edition = edition_class.find(params[:news_article_id] || params[:id])
-    @edition = LocalisedModel.new(edition, edition.primary_locale)
+  def requested_edition_id
+    params[:news_article_id] || super
   end
 end

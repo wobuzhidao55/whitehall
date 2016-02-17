@@ -49,11 +49,11 @@ module Admin::EditionRoutesHelper
     polymorphic_url([:admin, edition.owning_organisation, edition], *args)
   end
 
-  def poly_tagging_admin_edition_path(edition, *args)
+  def poly_admin_edition_edit_tags_path(edition, *args)
     if edition.respond_to? :owning_organisation
-      polymorphic_path([:admin, edition.owning_organisation, edition, :tagging], *args)
+      polymorphic_path([:admin, edition.owning_organisation, edition, :edit_tags], *args)
     else
-      polymorphic_path([:admin, edition, :tagging], *args)
+      polymorphic_path([:admin, edition, :edit_tags], *args)
     end
   end
 end

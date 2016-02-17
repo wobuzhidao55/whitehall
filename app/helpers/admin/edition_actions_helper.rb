@@ -111,7 +111,7 @@ module Admin::EditionActionsHelper
   end
 
   def tagging_edition_button(edition)
-    link_to 'Edit tags', poly_tagging_admin_edition_path(edition), title: "Tag #{edition.title}", class: "btn btn-default btn-lg add-left-margin"
+    link_to 'Edit tags', poly_admin_edition_edit_tags_path(edition), title: "Tag #{edition.title}", class: "btn btn-default btn-lg add-left-margin"
   end
 
   private

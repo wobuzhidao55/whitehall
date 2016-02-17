@@ -29,6 +29,10 @@ private
     CorporateInformationPage
   end
 
+  def requested_edition_id
+    params[:corporate_information_page_id] || super
+  end
+
   def new_edition
     @organisation.build_corporate_information_page(new_edition_params)
   end
@@ -46,10 +50,5 @@ private
 
   def document_can_be_previously_published
     false
-  end
-
-  def find_edition
-    edition = edition_class.find(params[:corporate_information_page_id] || params[:id])
-    @edition = LocalisedModel.new(edition, edition.primary_locale)
   end
 end

@@ -27,8 +27,7 @@ class Admin::PublicationsController < Admin::EditionsController
     end
   end
 
-  def find_edition
-    edition = edition_class.find(params[:publication_id] || params[:id])
-    @edition = LocalisedModel.new(edition, edition.primary_locale)
+  def requested_edition_id
+    params[:publication_id] || super
   end
 end

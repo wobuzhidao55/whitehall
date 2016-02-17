@@ -5,8 +5,7 @@ class Admin::GenericEditionsController < Admin::EditionsController
     GenericEdition
   end
 
-  def find_edition
-    edition = edition_class.find(params[:generic_edition_id] || params[:id])
-    @edition = LocalisedModel.new(edition, edition.primary_locale)
+  def requested_edition_id
+    params[:generic_edition_id] || super
   end
 end
