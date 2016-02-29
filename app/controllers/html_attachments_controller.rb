@@ -8,6 +8,7 @@ class HtmlAttachmentsController < PublicFacingController
   around_filter :set_locale_from_attachment
 
   def show
+    @organisations = Organisation.all
   end
 
 private
