@@ -80,7 +80,7 @@ Whitehall::Application.routes.draw do
     get "/latest" => 'latest#index', as: 'latest'
 
     resources :publications, only: [:index, :show], localised: true
-    get "/publications/:publication_id/:id" => 'html_attachments#show', as: 'publication_html_attachment'
+    #get "/publications/:publication_id/:id" => 'html_attachments#show', as: 'publication_html_attachment'
 
     resources :case_studies, path: 'case-studies', only: [:show, :index], localised: true
     resources :speeches, only: [:show], localised: true
@@ -108,7 +108,7 @@ Whitehall::Application.routes.draw do
         get :upcoming
       end
     end
-    get "/consultations/:consultation_id/:id" => 'html_attachments#show', as: 'consultation_html_attachment'
+    #get "/consultations/:consultation_id/:id" => 'html_attachments#show', as: 'consultation_html_attachment'
 
     resources :topics, path: "topics", only: [:index, :show]
     resources :topical_events, path: "topical-events", only: [:index, :show] do
