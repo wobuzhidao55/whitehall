@@ -11,7 +11,6 @@ class PageTitleTest < ActiveSupport::TestCase
     layouts/admin.html.erb
     layouts/frontend.html.erb
     layouts/home.html.erb
-    layouts/html_attachments.html.erb
   ).map do |f|
     File.expand_path(Rails.root + "app/views/" + f)
   end
