@@ -9,7 +9,7 @@ module Whitehall
     # the partials.
     def helpers
       @helpers ||= begin
-        helpers = ApplicationController.helpers
+        helpers = ActionView::Base.new
         helpers.view_paths = ApplicationController.view_paths
         helpers
       end

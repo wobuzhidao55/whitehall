@@ -8,8 +8,13 @@ class PublishingApiWorker < WorkerBase
     presenter = PublishingApiPresenters.presenter_for(model, update_type: update_type)
 
     I18n.with_locale(locale) do
+      content = presenter.content
+      File.open(Rails.root.join("tmp/wg_#{model.id}.json"), "a") do |f|
+        f.write content
+      end
+
       begin
-        send_item(presenter, locale)
+        #send_item(presenter, locale)
       rescue GdsApi::HTTPClientError => e
         handle_client_error(e)
       end
@@ -17,7 +22,7 @@ class PublishingApiWorker < WorkerBase
       if model.is_a?(::Unpublishing)
         # Unpublishings will be mirrored to the draft content-store, but we want
         # it to have the now-current draft edition
-        save_draft_of_unpublished_edition(model)
+        #save_draft_of_unpublished_edition(model)
       end
     end
   end

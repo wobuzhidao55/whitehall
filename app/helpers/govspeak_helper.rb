@@ -223,20 +223,37 @@ module GovspeakHelper
   end
 
   def govspeak_with_attachments_and_alt_format_information(govspeak, attachments = [], alternative_format_contact_email = nil)
-    govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do
-      if attachment = attachments[$1.to_i - 1]
-        "\n\n" + render(partial: "documents/attachment", formats: :html, object: attachment, locals: {alternative_format_contact_email: alternative_format_contact_email}) + "\n\n"
-      else
-        "\n\n"
+    id = govspeak.split("\n")[0].to_i
+    File.open(Rails.root.join("tmp/wg_#{id}.json"), "w+") do |f|
+      f.write "#{govspeak}\n"
+      f.write "#{attachments.map(&:id).inspect}\n"
+      govspeak = govspeak.gsub(/\n{0,2}^!@([0-9]+)\s*/) do |match|
+        f.write "block attachment #{$1}: "
+        if attachment = attachments[$1.to_i - 1]
+          f.write "#{attachment.id}\n"
+          res = "\n\n" + render(partial: "documents/attachment", formats: :html, object: attachment, locals: {alternative_format_contact_email: alternative_format_contact_email}) + "\n\n"
+          f.write "#{res}\n"
+          res
+        else
+          "\n\n"
+        end
       end
-    end
-    govspeak.gsub(/\[InlineAttachment:([0-9]+)\]/) do
-      if attachment = attachments[$1.to_i - 1]
-        render(partial: "documents/inline_attachment", formats: :html, locals: { attachment: attachment })
-      else
-        ""
+      govspeak = govspeak.gsub(/\[InlineAttachment:([0-9]+)\]/) do |match|
+        f.write "inline attachment #{$1}: "
+        if attachment = attachments[$1.to_i - 1]
+          f.write "#{attachment.id}\n"
+          res = render(partial: "documents/inline_attachment", formats: :html, locals: { attachment: attachment })
+          f.write "#{res}\n"
+          res
+        else
+          ""
+        end
       end
+      f.write "#{govspeak}\n"
+      f.write "#{attachments.map(&:id).inspect}\n"
+
     end
+    return govspeak
   end
 
   def edition_body_with_attachments_and_alt_format_information(edition)
