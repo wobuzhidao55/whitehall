@@ -11,8 +11,12 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
     # Use the real GovUkDelivery client
     Whitehall.govuk_delivery_client = GdsApi::GovUkDelivery.new(Plek.find('govuk-delivery'))
 
+    # Use the real Rummager for search indexing
+    Whitehall::SearchIndex.expects(:indexer_class).returns(Rummageable::Index)
+
     stub_request(:put, /panopticon/)
     stub_request(:post, /govuk-delivery/)
+    stub_request(:post, /search/)
   end
 
   def force_publish(edition, headers = {})
@@ -48,6 +52,7 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
     }
 
     assert_requested(:post, /govuk-delivery/, headers: onward_headers)
+    assert_requested(:post, /search.*documents/, headers: onward_headers)
     assert_requested(:put, /panopticon/, headers: onward_headers)
 
     # Main document
@@ -63,8 +68,5 @@ class RequestTracingTest < ActionDispatch::IntegrationTest
       assert_requested(:post, %r|publishing-api.*content/#{attachment_content_id}/publish|, headers: onward_headers)
       assert_requested(:patch, %r|publishing-api.*links/#{attachment_content_id}|, headers: onward_headers)
     end
-
-    raise "Either search indexing isn't happening because some condition isn't being met or it's being stubbed at an internal level."
-    raise "Whichever it is, we should make sure that we have a test that ensures the header is sent downstream to Rummager, too."
   end
 end

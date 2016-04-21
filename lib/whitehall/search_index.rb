@@ -28,11 +28,15 @@ module Whitehall
       # and we want to ensure that transaction is complete before we attempt to
       # index the edition, otherwise the edition may still be in a "scheduled"
       # state, and SearchIndexAddWorker will not index a non-"published" edition.
-      SearchIndexAddWorker.perform_in(10.seconds, instance.class.name, instance.id)
+      SearchIndexAddWorker.perform_in(10.seconds, instance.class.name, instance.id, request_id)
     end
 
     def self.delete(instance)
-      SearchIndexDeleteWorker.perform_async(instance.search_index['link'], instance.rummager_index)
+      SearchIndexDeleteWorker.perform_async(instance.search_index['link'], instance.rummager_index, request_id)
+    end
+
+    def self.request_id
+      GdsApi::GovukHeaders.headers[:govuk_request_id]
     end
   end
 

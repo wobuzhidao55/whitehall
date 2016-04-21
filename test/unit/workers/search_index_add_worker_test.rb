@@ -31,4 +31,11 @@ class SearchIndexAddWorkerTest < ActiveSupport::TestCase
     Rails.logger.expects(:warn).once
     SearchIndexAddWorker.new.perform(draft_publication.class.name, draft_publication.id)
   end
+
+  test '#perform takes an optional request_id' do
+    assert_equal GdsApi::GovukHeaders.headers[:govuk_request_id], nil
+
+    SearchIndexAddWorker.new.perform('Topic', 1, 'some-request-id')
+    assert_equal GdsApi::GovukHeaders.headers[:govuk_request_id], 'some-request-id'
+  end
 end

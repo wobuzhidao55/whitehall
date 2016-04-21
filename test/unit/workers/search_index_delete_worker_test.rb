@@ -9,4 +9,11 @@ class SearchIndexDeleteWorkerTest < ActiveSupport::TestCase
 
     SearchIndexDeleteWorker.new.perform('woo', 'government')
   end
+
+  test '#perform takes an optional request_id' do
+    assert_equal GdsApi::GovukHeaders.headers[:govuk_request_id], nil
+
+    SearchIndexDeleteWorker.new.perform('woo', 'government', 'some-request-id')
+    assert_equal GdsApi::GovukHeaders.headers[:govuk_request_id], 'some-request-id'
+  end
 end

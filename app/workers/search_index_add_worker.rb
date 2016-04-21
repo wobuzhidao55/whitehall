@@ -2,7 +2,9 @@ class SearchIndexAddWorker < WorkerBase
 
   attr_reader :id, :class_name
 
-  def perform(class_name, id)
+  def perform(class_name, id, request_id = nil)
+    GdsApi::GovukHeaders.set_header(:govuk_request_id, request_id) if request_id
+
     @class_name = class_name
     @id = id
 
