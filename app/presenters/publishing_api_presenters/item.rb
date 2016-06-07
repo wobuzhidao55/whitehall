@@ -16,7 +16,7 @@ class PublishingApiPresenters::Item
   def content
     {
       base_path: base_path,
-      title: title,
+      title: title.strip,
       description: description,
       schema_name: schema_name,
       document_type: document_type,
