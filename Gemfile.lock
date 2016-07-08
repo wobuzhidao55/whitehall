@@ -13,6 +13,16 @@ GIT
     test_track (0.1.0)
       rails (>= 3.1.0)
 
+PATH
+  remote: ../govspeak
+  specs:
+    govspeak (3.6.2)
+      addressable (~> 2.3.8)
+      htmlentities (~> 4)
+      kramdown (~> 1.10.0)
+      nokogiri (~> 1.5)
+      sanitize (~> 2.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -162,12 +172,6 @@ GEM
     globalize (5.0.1)
       activemodel (>= 4.2.0, < 4.3)
       activerecord (>= 4.2.0, < 4.3)
-    govspeak (3.6.2)
-      addressable (~> 2.3.8)
-      htmlentities (~> 4)
-      kramdown (~> 1.10.0)
-      nokogiri (~> 1.5)
-      sanitize (~> 2.1.0)
     govuk-content-schema-test-helpers (1.4.0)
       json-schema (~> 2.5.1)
     govuk-lint (0.5.1)
@@ -471,7 +475,7 @@ DEPENDENCIES
   gds-api-adapters (~> 31.1)
   gds-sso (~> 11.0)
   globalize (~> 5.0.0)
-  govspeak (~> 3.6.2)
+  govspeak (~> 3.6.2)!
   govuk-content-schema-test-helpers (= 1.4.0)
   govuk-lint (~> 0.5.1)
   govuk_admin_template (= 4.2.0)
@@ -540,4 +544,4 @@ DEPENDENCIES
   whenever (= 0.9.4)
 
 BUNDLED WITH
-   1.10.6
+   1.12.0.rc.4

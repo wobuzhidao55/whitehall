@@ -115,7 +115,7 @@ module GovspeakHelper
     # pre-processors
     govspeak = remove_extra_quotes_from_blockquotes(govspeak)
     govspeak = render_embedded_contacts(govspeak, options[:contact_heading_tag])
-    govspeak = render_embedded_fractions(govspeak)
+    # govspeak = render_embedded_fractions(govspeak)
     govspeak = set_classes_for_charts(govspeak)
     govspeak = set_classes_for_sortable_tables(govspeak)
 
