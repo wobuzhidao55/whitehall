@@ -132,7 +132,13 @@ private
     parsed_url = URI.parse(url)
     url_is_invalid = !['gov.uk', 'www.gov.uk'].include?(parsed_url.host)
     return nil if url_is_invalid
-    URI.parse(url).path
+    path = URI.parse(url).path
+    remove_sub_parts(path)
+  end
+
+  def remove_sub_parts(path)
+    first_part = path.split("/")[1]
+    "/" + first_part
   end
 
   # Returns the published edition of any detailed guide documents that this edition is related to.

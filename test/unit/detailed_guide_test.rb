@@ -74,6 +74,11 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert guide.has_additional_related_mainstream_content?
   end
 
+  test "is associated with the document in the mainstream application if linking to a part of it" do
+    guide = build(:detailed_guide, related_mainstream_content_url: "http://www.gov.uk/mainstream-content/part-of-a-mainstream-content", related_mainstream_content_title: "Name of content")
+    assert_equal "/mainstream-content", guide.related_mainstream_base_path
+  end
+
   test "should require a title if related mainstream content url is given" do
     refute build(:detailed_guide, related_mainstream_content_url: "http://mainstream/content").valid?
   end
@@ -136,9 +141,9 @@ class DetailedGuideTest < ActiveSupport::TestCase
       summary: "Some summary",
       body: "Some content",
       related_mainstream_content_title: "Lorem",
-      related_mainstream_content_url: "http://www.gov.uk/guidance/lorem",
+      related_mainstream_content_url: "http://www.gov.uk/lorem",
       additional_related_mainstream_content_title: "Ipsum",
-      additional_related_mainstream_content_url: "http://www.gov.uk/guidance/ipsum",
+      additional_related_mainstream_content_url: "http://www.gov.uk/ipsum",
     )
 
     related_mainstream_ids = detailed_guide.related_mainstream
