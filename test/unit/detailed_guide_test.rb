@@ -74,6 +74,15 @@ class DetailedGuideTest < ActiveSupport::TestCase
     assert guide.has_additional_related_mainstream_content?
   end
 
+  test "should error if related mainstream content isn't found" do
+    Whitehall.publishing_api_v2_client.stubs(:lookup_content_id)
+      .with(base_path: "/mainstream-content/subpart")
+      .returns(nil)
+    guide = build(:detailed_guide, related_mainstream_content_url: "http://www.gov.uk/mainstream-content/subpart", related_mainstream_content_title: "Name of content")
+    guide.related_mainstream
+    refute guide.valid?
+  end
+
   test "should require a title if related mainstream content url is given" do
     refute build(:detailed_guide, related_mainstream_content_url: "http://mainstream/content").valid?
   end

@@ -106,13 +106,29 @@ class DetailedGuide < Edition
     base_paths.compact!
 
     if base_paths.any?
-      Whitehall.publishing_api_v2_client
-        .lookup_content_ids(base_paths: base_paths)
-        .values
-        .compact
+      content_ids = []
+      base_paths.each do |base_path|
+        content_id = Whitehall.publishing_api_v2_client
+                      .lookup_content_id(base_path: base_path)
+        if base_path == related_mainstream_base_path && content_id.nil?
+          @related_mainstream_not_found = true
+        elsif base_path == additional_related_mainstream_base_path && content_id.nil?
+          @additional_related_mainstream_not_found = true
+        end
+        content_ids << content_id
+      end
+      content_ids
     else
       []
     end
+  end
+
+  def related_mainstream_not_found?
+    @related_mainstream_not_found ||= false
+  end
+
+  def additional_related_mainstream_not_found?
+    @additional_related_mainstream_not_found ||= false
   end
 
   def government
@@ -149,12 +165,14 @@ private
     if related_mainstream_content_url.present? && related_mainstream_content_title.blank?
       errors.add(:related_mainstream_content_title, "cannot be blank if a related URL is given")
     end
+      errors.add(:related_mainstream_content_url, "linked guide cannot be found for #{related_mainstream_content_url}" ) if related_mainstream_not_found?
   end
 
   def additional_related_mainstream_content_valid?
     if additional_related_mainstream_content_url.present? && additional_related_mainstream_content_title.blank?
       errors.add(:additional_related_mainstream_content_title, "cannot be blank if an additional related URL is given")
     end
+    errors.add(:additional_related_mainstream_content_url, "linked guide cannot be found for #{additional_related_mainstream_content_url}" ) if additional_related_mainstream_not_found?
   end
 
   def self.format_name
