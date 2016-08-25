@@ -124,8 +124,8 @@ class DetailedGuideTest < ActiveSupport::TestCase
 
   test 'related_mainstream works correctly' do
     lookup_hash = {
-      "/guidance/lorem" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
-      "/guidance/ipsum" => "9af50189-de1c-49af-a334-6b1d87b593a6"
+      "/lorem" => "9dd9e077-ae45-45f6-ad9d-2a484e5ff312",
+      "/ipsum" => "9af50189-de1c-49af-a334-6b1d87b593a6"
     }
 
     publishing_api_has_lookups(lookup_hash)
@@ -136,9 +136,9 @@ class DetailedGuideTest < ActiveSupport::TestCase
       summary: "Some summary",
       body: "Some content",
       related_mainstream_content_title: "Lorem",
-      related_mainstream_content_url: "http://www.gov.uk/guidance/lorem",
+      related_mainstream_content_url: "http://www.gov.uk/lorem",
       additional_related_mainstream_content_title: "Ipsum",
-      additional_related_mainstream_content_url: "http://www.gov.uk/guidance/ipsum",
+      additional_related_mainstream_content_url: "http://www.gov.uk/ipsum",
     )
 
     related_mainstream_ids = detailed_guide.related_mainstream
