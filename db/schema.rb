@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160805122401) do
+ActiveRecord::Schema.define(version: 20160826132141) do
 
   create_table "about_pages", force: :cascade do |t|
     t.integer  "topical_event_id",    limit: 4
@@ -920,6 +920,16 @@ ActiveRecord::Schema.define(version: 20160805122401) do
 
   add_index "recent_edition_openings", ["edition_id", "editor_id"], name: "index_recent_edition_openings_on_edition_id_and_editor_id", unique: true, using: :btree
 
+  create_table "related_mainstreams", force: :cascade do |t|
+    t.integer  "edition_id", limit: 4
+    t.string   "content_id", limit: 255
+    t.boolean  "additional",             default: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  add_index "related_mainstreams", ["edition_id"], name: "index_related_mainstreams_on_edition_id", using: :btree
+
   create_table "responses", force: :cascade do |t|
     t.integer  "edition_id",   limit: 4
     t.text     "summary",      limit: 65535
@@ -1253,4 +1263,5 @@ ActiveRecord::Schema.define(version: 20160805122401) do
     t.datetime "updated_at"
   end
 
+  add_foreign_key "related_mainstreams", "editions"
 end
