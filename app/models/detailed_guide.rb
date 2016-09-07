@@ -24,7 +24,6 @@ class DetailedGuide < Edition
   validate :related_mainstream_content_valid?
   validate :additional_related_mainstream_content_valid?
   validate :related_mainstream_found
-
   after_save :persist_content_ids
 
   attr_reader :content_ids, :related_mainstream_content_ids
