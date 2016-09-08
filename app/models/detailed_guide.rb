@@ -194,7 +194,7 @@ private
 
   def persist_content_ids
     return if @content_ids.nil? || @content_ids.compact.empty?
-    current_related_mainstream_ids = RelatedMainstream.where(edition_id: self.id).pluck(:id) 
+    current_related_mainstream_ids = RelatedMainstream.where(edition_id: self.id).pluck(:id)
     RelatedMainstream.destroy(current_related_mainstream_ids)
     RelatedMainstream.create!(edition_id: self.id, content_id: @content_ids[0])
     RelatedMainstream.create!(edition_id: self.id, content_id: @content_ids[1], additional: true) if @content_ids[1]
