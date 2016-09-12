@@ -195,8 +195,10 @@ private
 
   def persist_content_ids
     return if @content_ids.nil? || @content_ids.compact.empty?
-    RelatedMainstream.find_or_create_by!(edition_id: self.id, content_id: @content_ids[0])
-    RelatedMainstream.find_or_create_by!(edition_id: self.id, content_id: @content_ids[1], additional: true) if @content_ids[1].present?
+    current_related_mainstream_ids = RelatedMainstream.where(edition_id: self.id).pluck(:id) 
+    RelatedMainstream.destroy(current_related_mainstream_ids)
+    RelatedMainstream.create!(edition_id: self.id, content_id: @content_ids[0])
+    RelatedMainstream.create!(edition_id: self.id, content_id: @content_ids[1], additional: true) if @content_ids[1]
   end
 
   def self.format_name
