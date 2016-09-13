@@ -24,10 +24,10 @@ class DocumentListExportPresenter
       'Content sub-type',
       'State',
       'Attachments',
-      'Policies',
       'Specialist sectors',
       'Collections',
       'Affected by history-mode',
+      'Total editions',
     ]
   end
 
@@ -46,10 +46,10 @@ class DocumentListExportPresenter
       sub_content_type,
       state,
       attachment_types,
-      policies,
       specialist_sectors,
       collections,
       edition.political?,
+      edition.other_editions.count + 1,
     ]
   end
 

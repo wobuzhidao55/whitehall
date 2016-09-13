@@ -62,6 +62,27 @@ namespace :export do
     end
   end
 
+  desc "Export one-off report of documents"
+  task :one_off_report => :environment do |t|
+    require 'csv'
+    user = User.find(1)
+    user.permissions = ['GDS Editor', 'GDS Admin', 'Managing Editor']
+    user.save
+    filter = Admin::EditionFilter.new(Edition, user, {state: 'active'})
+
+    CSV.open('/var/govuk/whitehall/tmp/report_output.txt', 'wb') do |csv|
+      csv << DocumentListExportPresenter.header_row
+
+      i = 0
+      filter.each_edition_for_csv do |edition|
+        puts "Handling doc #{i}" if i % 100 == 0
+        presenter = DocumentListExportPresenter.new(edition)
+        csv << presenter.row
+        i = i + 1
+      end
+    end
+  end
+
   desc "Export list of published editions for orgs export:published_editions ORGS=org-slug"
   task :published_editions, [:orgs] => :environment do |t, args|
 

@@ -1,8 +1,11 @@
+require 'csv'
+
 class DocumentListExportWorker < WorkerBase
   def perform(filter_options, user_id)
     user = User.find(user_id)
     filter = create_filter(filter_options, user)
     csv = generate_csv(filter)
+    File.open('/var/govuk/whitehall/tmp/report_output.csv', 'w+') {|f| f.write(csv) }
     send_mail(csv, user, filter)
   end
 

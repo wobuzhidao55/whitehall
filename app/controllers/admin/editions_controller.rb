@@ -61,7 +61,7 @@ class Admin::EditionsController < Admin::BaseController
   end
 
   def export
-    DocumentListExportWorker.perform_async(params_filters_with_default_state, current_user.id)
+    DocumentListExportWorker.new.perform(params_filters_with_default_state, current_user.id)
     flash[:notice] = "The document list is being exported"
     redirect_to params_filters.merge(action: :index)
   end
