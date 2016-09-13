@@ -33,7 +33,7 @@ end
 def update_mainstream_url(id, clean_url)
   detailed_guide = DetailedGuide.find(id)
   incorrect_url = detailed_guide.related_mainstream_content_url
-  #detailed_guide.update_attribute(:related_mainstream_content_url, clean_url)
+  detailed_guide.update_attribute(:related_mainstream_content_url, clean_url)
   write_to_file("related_mainstream_content.related_content_found_and_updated", [id, incorrect_url, clean_url])
 end
 
