@@ -24,9 +24,9 @@ def update_related_mainstream_url(field_name, current_mainstream_url, fixed_url)
   detailed_guides = DetailedGuide.where(field_name => current_mainstream_url).where.not(state: 'superseded')
 
   detailed_guides.each do |detailed_guide|
-    detailed_guide[field_name] = fixed_url
-    detailed_guide.save
-    write_to_file("manually_fix_urls.fixed", [detailed_guide.id, current_mainstream_url, fixed_url])
+    x = detailed_guide.update_attribute(field_name, fixed_url)
+    p "saved: #{x}, #{detailed_guide.id}, #{field_name.to_s}, #{current_mainstream_url}, #{fixed_url}"
+    write_to_file("manually_fix_urls.fixed", [detailed_guide.id, field_name.to_s, current_mainstream_url, fixed_url])
   end
 end
 
