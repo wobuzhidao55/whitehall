@@ -19,6 +19,15 @@ class EditionService
     end
   end
 
+  def perform_without_transaction!
+    if can_perform?
+      prepare_edition
+      fire_transition!
+      notify!
+      true
+    end
+  end
+
   def can_perform?
     !failure_reason
   end

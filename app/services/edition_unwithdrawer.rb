@@ -34,7 +34,7 @@ private
     unwithdrawn_edition.editorial_remarks << EditorialRemark.create(author: user, edition: edition, body: "Unwithdrawn")
 
     Edition::AuditTrail.acting_as(user) do
-      Whitehall.edition_services.force_publisher(unwithdrawn_edition).perform!
+      Whitehall.edition_services.force_publisher(unwithdrawn_edition).perform_without_transaction!
     end
   end
 
