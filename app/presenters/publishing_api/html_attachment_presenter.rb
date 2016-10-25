@@ -28,6 +28,7 @@ module PublishingApi
         public_updated_at: item.updated_at,
         rendering_app: Whitehall::RenderingApp::WHITEHALL_FRONTEND,
         schema_name: schema_name,
+        withdrawn_notice: withdrawn_notice,
       )
       content.merge!(PayloadBuilder::Routes.for(base_path))
     end
@@ -88,6 +89,10 @@ module PublishingApi
 
     def locale
       item.translated_locales.first
+    end
+
+    def withdrawn_notice
+      PayloadBuilder::WithdrawnNotice.for(parent)
     end
   end
 end

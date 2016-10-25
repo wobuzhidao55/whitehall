@@ -36,7 +36,8 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
         public_timestamp: edition.public_timestamp,
         first_published_version: html_attachment.attachable.first_published_version?,
       },
-      need_ids: []
+      need_ids: [],
+      withdrawn_notice: {}
     }
     presented_item = present(html_attachment)
 
@@ -80,5 +81,21 @@ class PublishingApi::HtmlAttachmentPresenterTest < ActiveSupport::TestCase
 
       assert_equal Time.zone.now, present(html_attachment).content[:details][:public_timestamp]
     end
+  end
+end
+
+class PublishingApi::WithdrawnHtmlAttachmentPresenterTest < ActiveSupport::TestCase
+  setup do
+    parent = create(:publication, :with_html_attachment, :withdrawn)
+    attachment = HtmlAttachment.last
+    PublishingApi::PayloadBuilder::WithdrawnNotice.expects(:for).with(parent).returns(
+      @expected_withdrawn_notice = {test: "content"}
+    )
+    @presented_attachment = PublishingApi::HtmlAttachmentPresenter.new(attachment)
+  end
+
+  test "presents the attachable withdrawn notice as a top level field" do
+    assert_equal @expected_withdrawn_notice,
+      @presented_attachment.content[:withdrawn_notice]
   end
 end
