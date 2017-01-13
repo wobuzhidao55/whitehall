@@ -16,7 +16,7 @@ node {
       categories: [],
       limitOneJobWithMatchingParams: true,
       maxConcurrentPerNode: 1,
-      maxConcurrentTotal: 0,
+      maxConcurrentTotal: 999,
       paramsToUseForLimit: 'whitehall',
       throttleEnabled: true,
       throttleOption: 'category'],
