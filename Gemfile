@@ -81,7 +81,7 @@ gem 'uglifier'
 
 group :development, :test do
   gem 'parallel_tests'
-  gem 'test-queue', '0.2.11'
+  gem 'test-queue', '0.4.1'
   gem 'ruby-prof'
   gem 'pry-byebug'
   gem 'govuk-lint', '~> 0.5.1'
