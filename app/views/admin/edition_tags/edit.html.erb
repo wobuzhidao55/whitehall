@@ -19,6 +19,14 @@
     Warning: changes to tags appear instantly on the live site.
   </p>
 
+  <div class="form-group">
+    <div class="topic-tree">
+      <%= @edition_tag_form.all_taxons["title"] %> something
+
+      <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: @edition_tag_form.all_taxons["links"]["child_taxons"]} %>
+    </div>
+  </div>
+
   <%= form.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", admin_edition_path(@edition), class: 'btn btn-default' %>
 <% end %>

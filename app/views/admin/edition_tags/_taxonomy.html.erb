@@ -1,0 +1,13 @@
+<% taxons.each do |taxon| %>
+<p>
+  <label>
+    <% if @edition_tag_form.taxons.include?(taxon["content_id"]) %>
+    <input type="checkbox" name="taxons[]" checked="checked" value="<%= taxon["content_id"] %>">
+    <% else %>
+    <input type="checkbox" name="taxons[]" value="<%= taxon["content_id"] %>">
+    <% end %>
+
+    <span><%= taxon["title"] %></span>
+  </label>
+</p>
+<% end %>

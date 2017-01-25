@@ -24,4 +24,8 @@ class EditionTaxonomyTagForm
         previous_version: previous_version
       )
   end
+
+  def all_taxons
+    Taxonomy.education
+  end
 end
