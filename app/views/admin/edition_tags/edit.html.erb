@@ -21,7 +21,10 @@
 
   <div class="form-group">
     <div class="topic-tree">
-      <%= @edition_tag_form.all_taxons["title"] %> something
+
+      <p style="font-size: 16px;">
+        <strong><%= @edition_tag_form.all_taxons["title"] %></strong>
+      </p>
 
       <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: @edition_tag_form.all_taxons["links"]["child_taxons"]} %>
     </div>
