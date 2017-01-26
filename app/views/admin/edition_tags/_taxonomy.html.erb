@@ -3,12 +3,12 @@
   <label>
     <%= checkbox_for_taxonomy(@edition_tag_form.taxons, taxon) %>
 
-    <span><%= taxon["title"] %></span>
+    <span><%= taxon.content_item["title"] %></span>
   </label>
 </p>
 <div class="topics">
-  <% if taxon["links"]["child_taxons"].present? %>
-  <%= render partial: "taxonomy", locals: {form: form, taxons: taxon["links"]["child_taxons"]} %>
+  <% if taxon.children.present? %>
+  <%= render partial: "taxonomy", locals: {form: form, taxons: taxon.children} %>
   <% end %>
 </div>
 <% end %>

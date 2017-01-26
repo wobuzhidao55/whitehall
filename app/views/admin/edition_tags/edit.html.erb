@@ -9,10 +9,10 @@
     <div class="topic-tree">
 
       <p style="font-size: 16px;">
-        <strong><%= @edition_tag_form.all_taxons["title"] %></strong>
+        <strong><%= @edition_tag_form.all_taxons.name %></strong>
       </p>
 
-      <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: @edition_tag_form.all_taxons["links"]["child_taxons"]} %>
+      <%= render partial: "taxonomy", locals: {form: @edition_tag_form, taxons: @edition_tag_form.all_taxons.children} %>
     </div>
   </div>
 
