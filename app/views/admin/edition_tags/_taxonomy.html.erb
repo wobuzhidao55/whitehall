@@ -11,13 +11,8 @@
   </label>
 </p>
 <div class="topics">
-  <p>
-    <label>
-      <input type="checkbox" name="topic" value="Funding and finance for students|Financial help for international students in the UK"> <span>Financial help for international students in the UK</span>
-    </label>
-  </p>
-
-  <div class="topics">
-  </div>
+  <% if taxon["links"]["child_taxons"].present? %>
+  <%= render partial: "taxonomy", locals: {form: form, taxons: taxon["links"]["child_taxons"]} %>
+  <% end %>
 </div>
 <% end %>
