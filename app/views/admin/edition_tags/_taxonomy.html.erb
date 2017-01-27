@@ -1,7 +1,7 @@
 <% taxons.each do |taxon| %>
 <p>
   <label>
-    <%= checkbox_for_taxonomy(@edition_tag_form.taxons, taxon) %>
+    <%= checkbox_for_taxonomy(@edition_tag_form.selected_taxons, taxon) %>
 
     <span><%= taxon.content_item["title"] %></span>
   </label>

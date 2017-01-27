@@ -45,6 +45,12 @@ module Taxonomy
       end
     end
 
+    def descendants
+      tree.tap do |tree_without_self|
+        tree_without_self.shift
+      end
+    end
+
     def count
       tree.count
     end

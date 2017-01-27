@@ -18,7 +18,7 @@ class EditionTaxonomyTagFormTest < ActiveSupport::TestCase
     form = EditionTaxonomyTagForm.load(content_id)
 
     assert_equal(form.edition_content_id, content_id)
-    assert_equal(form.taxons, taxons)
+    assert_equal(form.selected_taxons, taxons)
     assert_equal(form.previous_version, 1)
   end
 
