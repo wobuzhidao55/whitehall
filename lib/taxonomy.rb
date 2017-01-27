@@ -11,7 +11,6 @@ module Taxonomy
   class TreeNode
     attr_reader :name, :content_item, :children
     attr_accessor :parent_node
-    delegate :content_id, to: :content_item
     delegate :map, :each, to: :tree
 
     def initialize(content_item:, name_field: "title")
@@ -62,6 +61,10 @@ module Taxonomy
     def node_depth
       return 0 if root?
       1 + parent_node.node_depth
+    end
+
+    def content_id
+      content_item["content_id"]
     end
   end
 
