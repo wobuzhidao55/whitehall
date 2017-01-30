@@ -8,6 +8,22 @@
 @import "_shims";
 @import "_typography";
 
+@import "design-patterns/breadcrumbs";
+
+.govuk-breadcrumbs {
+  // reset the default browser styles
+  ol {
+    padding: 0;
+    margin: 0;
+  }
+
+  li:last-child {
+    font-weight: bold;
+  }
+
+  @include breadcrumbs;
+}
+
 // Frontend styleguide is used for rendering govspeak and some other things
 // it probably shouldn't be used for (e.g. $gutter).
 @import "frontend/styleguide/_dimensions";

@@ -11,9 +11,12 @@
       Adding topics will include this content in the navigation beta.
     </p>
 
-    <div class="content content-bordered">
-      
-    </div>
+    <nav class="content content-bordered">
+      <%= render partial: 'govuk_component/breadcrumbs', locals: {
+        breadcrumbs: @breadcrumbs
+      } %>
+
+    </nav>
 
     <%= form_for @edition_tag_form, url: admin_edition_tags_path(@edition), method: :put do |form| %>
       <%= form.hidden_field :previous_version %>

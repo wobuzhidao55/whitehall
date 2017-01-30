@@ -6,6 +6,12 @@ class Admin::EditionTagsController < Admin::BaseController
 
   def edit
     @edition_tag_form = EditionTaxonomyTagForm.load(@edition.content_id)
+
+    expanded_links = Whitehall
+          .publishing_api_v2_client
+          .get_expanded_links(@edition.content_id)
+
+    @breadcrumbs = expand_parents(expanded_links)
   end
 
   def update
@@ -23,6 +29,20 @@ class Admin::EditionTagsController < Admin::BaseController
   end
 
 private
+
+
+  def expand_parents(content_item_expanded_links)
+    content_item_expanded_links["expanded_links"]["parent_taxons"].map do |direct_parent|
+      breadcrumb = []
+      while direct_parent
+        breadcrumb << direct_parent
+
+        direct_parent = direct_parent["links"]["parent_taxons"].first
+      end
+
+      breadcrumb
+    end
+  end
 
   def redirect_back
     if request.env["HTTP_REFERER"].blank?
