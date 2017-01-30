@@ -27,9 +27,7 @@ class EditionTaxonomyTagForm
 
   def taxons_to_publish
     education_taxons.tree.each_with_object([]) do |taxon, list_of_taxons|
-      content_ids = taxon.descendants.map(&:content_item).map do |content_item|
-        content_id
-      end
+      content_ids = taxon.descendants.map(&:content_id)
 
       any_descendants_selected = selected_taxons.any? do |selected_taxon|
         content_ids.include?(selected_taxon)

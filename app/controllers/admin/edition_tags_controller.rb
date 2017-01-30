@@ -7,11 +7,11 @@ class Admin::EditionTagsController < Admin::BaseController
   def edit
     @edition_tag_form = EditionTaxonomyTagForm.load(@edition.content_id)
 
-    expanded_links = Whitehall
-          .publishing_api_v2_client
-          .get_expanded_links(@edition.content_id)
-
-    @breadcrumbs = expand_parents(expanded_links)
+    # expanded_links = Whitehall
+    #       .publishing_api_v2_client
+    #       .get_expanded_links(@edition.content_id)
+    #
+    # @breadcrumbs = expand_parents(expanded_links)
   end
 
   def update
@@ -22,7 +22,8 @@ class Admin::EditionTagsController < Admin::BaseController
     )
 
     @edition_tag_form.publish!
-    redirect_to admin_edition_path(@edition)
+    redirect_to edit_admin_edition_tags_path(@edition),
+      notice: "The tags have been updated."
   rescue GdsApi::HTTPConflict
     redirect_to edit_admin_edition_tags_path(@edition),
       alert: "Somebody changed the tags before you could. Your changes have not been saved."
