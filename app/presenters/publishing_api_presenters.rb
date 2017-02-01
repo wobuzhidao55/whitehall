@@ -56,6 +56,8 @@ private
       PublishingApi::DetailedGuidePresenter
     when ::FatalityNotice
       PublishingApi::FatalityNoticePresenter
+    when ::NewsArticle
+      PublishingApi::NewsArticlePresenter
     when ::Publication
       PublishingApi::PublicationPresenter
     when StatisticalDataSet
