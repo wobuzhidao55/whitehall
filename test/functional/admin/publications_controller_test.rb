@@ -141,7 +141,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
     draft_edition = create(:draft_publication)
     get :show, id: draft_edition
 
-    refute_select '.tag-taxonomy'
+    refute_select '.taxonomy-topics'
   end
 
   view_test "when edition is from DfE show a button to tag to the new taxonomy" do
@@ -156,7 +156,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: publication
 
-    assert_select '.tag-taxonomy', "Tag to new taxonomy"
+    assert_select '.taxonomy-topics .btn', "Add topic"
   end
 
   view_test "when edition is from SFA show a button to tag to the new taxonomy" do
@@ -171,7 +171,7 @@ class Admin::PublicationsControllerTest < ActionController::TestCase
 
     get :show, id: publication
 
-    assert_select '.tag-taxonomy', "Tag to new taxonomy"
+    assert_select '.taxonomy-topics .btn', "Add topic"
   end
 
   private

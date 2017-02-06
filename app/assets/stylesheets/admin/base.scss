@@ -8,6 +8,33 @@
 @import "_shims";
 @import "_typography";
 
+
+@import "design-patterns/breadcrumbs";
+
+.taxon-breadcrumb {
+  // reset the default browser styles
+  ol {
+    padding: 0;
+    margin: 0;
+  }
+
+  li:last-child {
+    font-weight: bold;
+  }
+
+  // FIXME - use variable
+  color: #0b0c0c;
+
+  @include breadcrumbs;
+}
+
+.content-bordered{
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 16px;
+}
+
 // Frontend styleguide is used for rendering govspeak and some other things
 // it probably shouldn't be used for (e.g. $gutter).
 @import "frontend/styleguide/_dimensions";
